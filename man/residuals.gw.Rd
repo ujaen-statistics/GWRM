@@ -2,7 +2,7 @@
 % Please edit documentation in R/residuals.R
 \name{residuals.gw}
 \alias{residuals.gw}
-\title{Extract and Visualize Model Residuals}
+\title{Extract and Visualize GWRM Model Residuals}
 \usage{
 \method{residuals}{gw}(object, type = "pearson", rep = 19,
   envelope = TRUE, title = "Simulated Envelope of Residuals",
