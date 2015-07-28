@@ -1,0 +1,18 @@
+{
+    "contents" : "Package: GWRM\nType: Package\nTitle: Generalized Waring Regression Model for Count Data\nVersion: 2.0.3\nDate: 2015-07-23\nAuthors@R: c(\n    person(\"Antonio Jose\", \"Saez-Castillo\", role = c(\"aut\", \"cre\"), email = \"ajsaez@ujaen.es\"),\n    person(\"Silverio\", \"Vilchez-Lopez\", role = \"aut\", email = \"svilchez@ujaen.es\"),\n    person(\"Maria Jose\", \"Olmo-Jimenez\", role = \"aut\", email = \"mjolmo@ujaen.es\"),\n    person(\"Jose\", \"Rodriguez-Avi\", role = \"aut\", email = \"jravi@ujaen.es\"),\n    person(\"Antonio\", \"Conde-Sanchez\", role = \"aut\", email = \"aconde@ujaen.es\"),\n    person(\"Ana Maria\", \"Martinez-Rodriguez\", role = \"aut\", email = \"ammartin@ujaen.es\"))\nMaintainer: Antonio Jose Saez-Castillo <ajsaez@ujaen.es>\nDepends: R (>= 3.0.0)\nImports: foreach, doParallel, stats, parallel\nDescription: Statistical functions to fit, validate and describe a Generalized\n    Waring Regression Model (GWRM).\nLicense: GPL-2 | GPL-3\nLazyData: true\nNeedsCompilation: no\nPackaged: 2015-07-23 19:40:52 UTC; UJA\nAuthor: Antonio Jose Saez-Castillo [aut, cre],\n  Silverio Vilchez-Lopez [aut],\n  Maria Jose Olmo-Jimenez [aut],\n  Jose Rodriguez-Avi [aut],\n  Antonio Conde-Sanchez [aut],\n  Ana Maria Martinez-Rodriguez [aut]\nRepository: CRAN\nDate/Publication: 2015-07-23 19:40:52\n",
+    "created" : 1437672572726.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2237984684",
+    "id" : "330DD5DF",
+    "lastKnownWriteTime" : 1437675012,
+    "path" : "E:/glm.wa/GWRM_DIVIDIDO_ROXYGEN/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "dcf"
+}

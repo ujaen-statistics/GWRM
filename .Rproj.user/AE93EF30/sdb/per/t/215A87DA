@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Genaralizing Waring\n#'\n#' Random generation for the Gamma distribution with parameters a, k, ro\n#'\n#' @param n number of generated values\n#' @param a a parameter\n#' @param k k parameter\n#' @param ro ro parameter\n#'\n#' @return vector of generated values\n#'\n#' @importFrom stats rbeta rgamma rpois\n#'\n#' @examples\n#' rgw(10,2,2,2)\n#'\n#' @export\n\nrgw <- function(n, a, k, ro){\n  if (sum(a <= 0) | sum(k <= 0) | sum(ro <= 0)) stop('Parameters must be positive')\n  is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol\n  if ((any(!is.wholenumber(n)==TRUE) | any(n <= 0))) stop('n must be a positive integer')\n  u <- rbeta(n, ro, k)\n  v <- u / (1 - u)\n  lam <- rgamma(n, a, v)\n  salida <- rpois(n, lam)\n  return(salida)\n}\n",
+    "created" : 1437684978983.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1065360129",
+    "id" : "215A87DA",
+    "lastKnownWriteTime" : 1437685028,
+    "path" : "E:/glm.wa/GWRM_DIVIDIDO_ROXYGEN/R/rgw.r",
+    "project_path" : "R/rgw.r",
+    "properties" : {
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

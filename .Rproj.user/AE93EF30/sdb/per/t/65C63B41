@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Predict Method for GW Fits\n#'\n#' Obtains predictions and optionally estimates standard errors of those predictions from a fitted generalized linear model object.\n#'\n#' @param object\ta fitted object of class inheriting from \"gw\".\n#' @param newdata\toptionally, a data frame in which to look for variables with which to predict. If omitted, the fitted linear predictors are used.\n#' @param ... \tfurther arguments passed to or from other methods.\n#'\n#' @return a vector or matrix of predictions\n#'\n#' @importFrom stats delete.response .checkMFClasses\n#'\n#' @examples\n#' data(goals)\n#' fit <- gw(goals ~ position, data = goals)\n#' predict(fit)\n#'\n#' @export\n\npredict.gw <- function(object = NULL, newdata = NULL, ...){\n  tt <- terms(object)\n  if (!inherits(object, \"gw\"))\n    warning(\"calling predict.gw(<fake-gw-object>) ...\")\n\n  if (missing(newdata) || is.null(newdata)) {\n    mm <- X <- model.matrix(object)\n    mmDone <- TRUE\n    offset <- object$offset\n  }\n  else {\n    Terms <- delete.response(tt)\n    m <- model.frame(Terms, newdata, xlev = object$xlevels)\n    if (!is.null(cl <- attr(Terms, \"dataClasses\")))\n      .checkMFClasses(cl, m)\n    nobs<-nrow(as.matrix(m))\n    X <- model.matrix(Terms, m, offset <- rep(0, nobs))\n    if (!is.null(off.num <- attr(tt, \"offset\")))\n      for (i in off.num) offset <- offset + eval(attr(tt, \"variables\")[[i + 1]], newdata)\n    if (!is.null(object$call$offset))\n      offset <- offset + eval(object$call$offset, newdata)\n    mmDone <- FALSE\n  }\n\n  ncovars <- ncol(X)\n  beta <- object$coefficients[1:(ncovars)]\n  if(!object$kBool){\n    k <- object$betaIIpars[1]\n    ro <- object$betaIIpars[2]\n  }\n  else{\n    k <- object$k\n    ro <- object$betaIIpars[2]\n  }\n\n  if (is.null(offset))\n    fits <- exp(X %*% beta)\n  else\n    fits <- exp(offset + X %*% beta)\n  predictor <- cbind(fits)\n  colnames(predictor) <- c(\"fit\")\n  ans <- data.frame(predictor)\n  return(ans)\n}\n",
+    "created" : 1437684820564.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3036101216",
+    "id" : "65C63B41",
+    "lastKnownWriteTime" : 1437684982,
+    "path" : "E:/glm.wa/GWRM_DIVIDIDO_ROXYGEN/R/predict.gw.r",
+    "project_path" : "R/predict.gw.r",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
