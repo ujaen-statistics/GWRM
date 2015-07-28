@@ -1,4 +1,4 @@
-#' Extract and Visualize Model Residuals
+#' Extract and Visualize GWRM Model Residuals
 #'
 #' residuals is a method which extracts model residuals from "gw", commonly returned
 #' by gw function. Optionally, it produces a normal plot with simulated envelope of the residual.
