@@ -10,7 +10,7 @@
 #' }
 #' 
 #' @docType data
-#' @keyword datasets
+#' @keywords datasets
 #' @name goals
 #' @usage data(goals)
 #' @source MARCA sports paper
