@@ -1,0 +1,15 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("GWRM R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{GWRM}: Generalized Waring Regression Model for Count Data",
+         author = c(
+    person("Antonio Jose", "Saez-Castillo"),
+    person("Silverio", "Vilchez-Lopez"),
+    person("Maria Jose", "Olmo-Jimenez"),
+    person("Jose", "Rodriguez-Avi"),
+    person("Antonio", "Conde-Sanchez"),
+    person("Ana Maria", "Martinez-Rodriguez")),
+         year = year,
+         note = note,
+         url = "http://CRAN.R-project.org/package=GWRM")
