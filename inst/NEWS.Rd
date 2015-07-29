@@ -2,8 +2,15 @@
 \title{News for Package 'GWRM'}
 \encoding{latin1}
                         
-                            
-\section{Changes in version 2.1 (2015-04-07)}{
+\section{Changes in version 2.0.3 (2015-07-31)}{
+                              
+\itemize{
+  \item Corrected bug in \code{gw} in relation of optimization methods.
+  \item \code{residuals.gw} S3 method includes now the possibility of parallel computing in order to construc the simulated envelope.
+  }
+}
+
+\section{Changes in version 2.0 (2015-04-07)}{
                               
 \itemize{
   \item \code{GWRM.fit} is now \code{gw}. The default algorithm to find ML-estimates is L-BFGS-B after nlm and Nelder-Mead previous optimizations; it provides SE estimates of all the parameters of the model.
