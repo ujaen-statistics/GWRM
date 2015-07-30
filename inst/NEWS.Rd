@@ -2,7 +2,7 @@
 \title{News for Package 'GWRM'}
 \encoding{latin1}
                         
-\section{Changes in version 2.0.3 (2015-07-31)}{
+\section{Changes in version 2.1 (2015-07-31)}{
                               
 \itemize{
   \item Corrected bug in \code{gw} in relation of optimization methods.
