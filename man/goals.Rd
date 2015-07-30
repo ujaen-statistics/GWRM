@@ -16,10 +16,10 @@ The response variable \emph{goals}, is the number of goals scored by the footbal
 }
 \details{
 \itemize{
-  \item{\code{clasif}}{a numeric vector}
-  \item{\code{position}}{a factor with levels \code{Defender} \code{Forward} \code{Midfielder}}
-  \item{\code{played}}{a numeric vector}
-  \item{\code{goals}}{a numeric vector}
+  \item{\code{clasif}} { a numeric vector}
+  \item{\code{position}} { a factor with levels \code{Defender} \code{Forward} \code{Midfielder}}
+  \item{\code{played}} { a numeric vector}
+  \item{\code{goals}} { a numeric vector}
 }
 }
 \references{

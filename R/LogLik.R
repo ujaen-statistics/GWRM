@@ -9,7 +9,7 @@
 #' There is a simple print method for "logLik" objects.
 #'
 #' @examples
-#' object<-gw(goals~played,data=goals)
+#' object <- gw(goals ~ played, data = goals)
 #' logLik(object)
 #'
 #' @export

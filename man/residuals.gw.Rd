@@ -36,7 +36,7 @@ by gw function. Optionally, it produces a normal plot with simulated envelope of
 }
 \examples{
 data(goals)
-fit0 <- gw(goals ~ position, data = goals)
-residuals(fit0, type = "pearson", rep = 19, envelope = TRUE, trace = FALSE, ncores=2)
+fit0 <- gw(goals ~ position, data = goals[sample(1:nrow(goals), 100), ])
+residuals(fit0, type = "pearson", rep = 19, envelope = TRUE, trace = FALSE, ncores = 2)
 }
 

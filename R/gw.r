@@ -25,7 +25,7 @@
 #' @importFrom stats model.response is.empty.model model.matrix contrasts model.weights model.offset AIC .getXlevels
 #'
 #' @examples
-#' gw(goals~played+position,data=goals)
+#' gw(goals ~ position + offset(log(played)), data = goals)
 #'
 #' @export
 

@@ -50,6 +50,6 @@ Make a Genaralizing Waring Regression from a formula an a dataset extracting
 the response variable and de covariates in no method.... and call to
 }
 \examples{
-gw(goals~played+position,data=goals)
+gw(goals ~ position + offset(log(played)), data = goals)
 }
 
