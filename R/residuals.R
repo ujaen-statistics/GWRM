@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' data(goals)
-#' fit0 <- gw(goals ~ position, data = goals[sample(1:nrow(goals), 100), ])
+#' fit0 <- gw(goals ~ position, data = goals[sample(1:nrow(goals), 75), ])
 #' residuals(fit0, type = "pearson", rep = 19, envelope = TRUE, trace = FALSE, ncores = 2)
 #'
 #' @importFrom stats qnorm

@@ -19,7 +19,7 @@ There is a simple print method for "logLik" objects.
 This function is generic; method functions can be written to handle specific classes of objects. Classes which have methods for this function include: "gw"
 }
 \examples{
-object<-gw(goals~played,data=goals)
+object <- gw(goals ~ played, data = goals)
 logLik(object)
 }
 
