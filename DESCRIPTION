@@ -20,11 +20,7 @@ LazyData: true
 NeedsCompilation: no
 Packaged: 2015-07-23 19:40:52 UTC; UJA
 Author: Antonio Jose Saez-Castillo [aut, cre],
-<<<<<<< HEAD
   Silverio Vilchez-Lopez [aut],
-=======
-  Silverio   Vilchez-Lopez [aut],
->>>>>>> 8357ed52ffeec625c62952e49484767c349963db
   Maria Jose Olmo-Jimenez [aut],
   Jose Rodriguez-Avi [aut],
   Antonio Conde-Sanchez [aut],
