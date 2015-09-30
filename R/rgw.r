@@ -1,19 +1,4 @@
-#' Genaralizing Waring
-#'
-#' Random generation for the Gamma distribution with parameters a, k, ro
-#'
-#' @param n number of generated values
-#' @param a a parameter
-#' @param k k parameter
-#' @param ro ro parameter
-#'
-#' @return vector of generated values
-#'
 #' @importFrom stats rbeta rgamma rpois
-#'
-#' @examples
-#' rgw(10,2,2,2)
-#'
 #' @export
 
 rgw <- function(n, a, k, ro){

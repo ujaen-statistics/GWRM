@@ -1,12 +1,12 @@
-#' Predict Method for GW Fits
+#' GWRM Predictions
 #'
-#' Obtains predictions and optionally estimates standard errors of those predictions from a fitted generalized linear model object.
+#' Obtains predictions from a fitted GWRM object.
 #'
-#' @param object	a fitted object of class inheriting from "gw".
+#' @param object	a fitted object of class inheriting from \code{"gw"}.
 #' @param newdata	optionally, a data frame in which to look for variables with which to predict. If omitted, the fitted linear predictors are used.
 #' @param ... 	further arguments passed to or from other methods.
 #'
-#' @return a vector or matrix of predictions
+#' @return A data frame with newdata and their fitted means.
 #'
 #' @importFrom stats delete.response .checkMFClasses
 #'

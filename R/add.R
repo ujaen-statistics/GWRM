@@ -2,14 +2,14 @@
 #'
 #' Compute all the single terms in the scope argument that can be added to the GWRM model, fit those models and compute a table of the changes in fit.
 #'
-#' @param object	a fitted object of class inheriting from "gw".
+#' @param object	a fitted object of class inheriting from \code{"gw"}.
 #' @param scope a formula giving the terms to be considered for adding.
-#' @param test "none", which considers the AIC criterion, or Chisq, which is the likelihood-ratio test.
+#' @param test \code{"none"}, which considers the AIC criterion, or \code{Chisq}, which is the likelihood-ratio test.
 #' @param k the penalty constant in AIC / Cp.
-#' @param trace	if TRUE, print out progress reports.
+#' @param trace	if \code{TRUE}, print out progress reports.
 #' @param ...	further arguments passed to or from other methods.
 #'
-#' @return An object of class "anova" summarizing the differences in fit between the models.
+#' @return An object of class \code{"anova"} summarizing the differences in fit between the models.
 #'
 #' @importFrom stats pchisq add.scope update.formula extractAIC nobs formula update as.formula
 #' @examples
@@ -76,14 +76,14 @@ add1.gw <- function (object, scope, test = c("none", "Chisq"), k = 2, trace = FA
 #'
 #' Compute all the single terms in the scope argument that can be dropped from the GWRM model, fit those models and compute a table of the changes in fit.
 #'
-#' @param object	a fitted object of class inheriting from "gw".
+#' @param object  a fitted object of class inheriting from \code{"gw"}.
 #' @param scope a formula giving the terms to be considered for dropping.
-#' @param test "none", which considers the AIC criterion, or Chisq, which is the likelihood-ratio test.
+#' @param test \code{"none"}, which considers the AIC criterion, or \code{Chisq}, which is the likelihood-ratio test.
 #' @param k the penalty constant in AIC / Cp.
-#' @param trace	if TRUE, print out progress reports.
+#' @param trace	if \code{TRUE}, print out progress reports.
 #' @param ...	further arguments passed to or from other methods.
 #'
-#' @return An object of class "anova" summarizing the differences in fit between the models.
+#' @return An object of class \code{"anova"} summarizing the differences in fit between the models.
 #'
 #' @importFrom stats pchisq terms drop.scope update.formula extractAIC nobs formula update as.formula
 #'
@@ -98,7 +98,6 @@ add1.gw <- function (object, scope, test = c("none", "Chisq"), k = 2, trace = FA
 
 #'
 #' @export
-
 drop1.gw<-function (object, scope, test = c("none", "Chisq"), k = 2, trace = FALSE, ...) {
 
   safe_pchisq <- function(q, df, ...){
@@ -152,22 +151,7 @@ drop1.gw<-function (object, scope, test = c("none", "Chisq"), k = 2, trace = FAL
   aod
 }
 
-#' Extract AIC
-#'
-#' Computes the (generalized) Akaike An Information Criterion for a fitted parametric model.
-#'
-#' @param fit	fitted model, usually the result of a fitter like lm.
-#' @param scale	optional numeric specifying the scale parameter of the model, see scale in step. Currently only used in the "lm" method, where scale specifies the estimate of the error variance, and scale = 0 indicates that it is to be estimated by maximum likelihood.
-#' @param k	numeric specifying the 'weight' of the equivalent degrees of freedom (=: edf) part in the AIC formula.
-#' @param ...	further arguments (currently unused in base R).
-#'
-#' @examples
-#' fit<-gw(goals~played,data=goals)
-#' extractAIC(fit)
-#'
 #' @export
-
-
 extractAIC.gw <- function (fit, scale, k = 2, ...){
   if (fit$aic < 0 || (fit$method != "nlm" && fit$code != 0)){
     c(Inf, Inf)

@@ -1,26 +1,59 @@
-#' Genaralizing Waring Regression
+#' Fitting GWRM Models
 #'
-#' Make a Genaralizing Waring Regression from a formula an a dataset extracting
-#' the response variable and de covariates in no method.... and call to
+#' \code{gw} is used to fit Generalized Waring Regression Models (GWRM), specified by giving a symbolic description of the linear predictor.
+
 #'
 #' @param formula	an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
 #' @param data	an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula).
-#' @param weights	an optional vector of 'prior weights' to be used in the fitting process. Should be NULL or a numeric vector.
-#' @param k	optional value for the k parameter. If NULL, it is estimated.
+#' @param weights	an optional vector of 'prior weights' to be used in the fitting process. Should be \code{NULL} or a numeric vector.
+#' @param k	optional value for the \code{k} parameter. If \code{NULL}, it is estimated.
 #' @param subset	an optional vector specifying a subset of observations to be used in the fitting process.
-#' @param na.action	a function which indicates what should happen when the data contain NAs. See glm.
-#' @param kstart	starting value for the k parameter.
-#' @param rostart	starting value for the ro parameter.
+#' @param na.action	a function which indicates what should happen when the data contain \code{NA} values. See \code{\link{glm}}.
+#' @param kstart	starting value for the \code{k} parameter.
+#' @param rostart	starting value for the \code{ro} parameter.
 #' @param betastart	starting values for the vector of means.
-#' @param offset	this can be used to specify an a priori known component to be included in the linear predictor during fitting. This should be NULL or a numeric vector of length equal to the number of cases. One or more offset terms can be included in the formula instead or as well, and if more than one is specified their sum is used. See model.offset.
+#' @param offset	this can be used to specify an a priori known component to be included in the linear predictor during fitting. This should be \code{NULL} or a numeric vector of length equal to the number of cases. One or more offset terms can be included in the formula instead or as well, and if more than one is specified their sum is used. See \code{\link{model.offset}}.
 #' @param control	a list of parameters for controlling the fitting process.
-#' @param method	the method to be used in fitting the model. The default method initially uses non-linear minimization (nlm) and Nelder-Mead optimization (optim) to fit a model which is then re-fitted by "L-BFGS-B" (optim). In this way, SE estimates for all the model parameters are provided. "nlm" and "Nelder-Mead" are also possible values, but they do not provide SE estimates for k and ro.
-#' @param hessian	if TRUE, the hessian of f at the minimum is returned.
+#' @param method	the method to be used in fitting the model. The default method initially uses non-linear minimization (\code{nlm}) and Nelder-Mead optimization (\code{optim}) to fit a model which is then re-fitted by \code{"L-BFGS-B"} (\code{optim}). In this way, SE estimates for all the model parameters are provided. \code{"nlm"} and \code{"Nelder-Mead"} are also possible values, but they do not provide SE estimates for \code{k} and \code{ro}.
+#' @param hessian	if \code{TRUE}, the hessian of \code{f} at the minimum is returned.
 #' @param model	a logical value indicating whether model frame should be included as a component of the returned value.
 #' @param x,y  logical values indicating whether the response vector and model matrix used in the fitting process should be returned as components of the returned value.
 #' @param ...	further arguments.
 #'
-#' @return gw object
+#' @return \code{gw} returns an object of class \code{"gw"}. The function \code{summary} can be used to obtain or print a summary of the results. An object of class \code{"gw"} is a list containing the following components:
+#' \itemize{
+#' \item{Y}{if requested (the default), the \code{y} vector used.}
+#' \item{W}{the weights supplied, a vector of \code{1}s if none were.}
+#' \item{covars}{names of the covariates in the model.}
+#' \item{nobs}{number of observations.}
+#' \item{covoffset}{a logical value specifying if an offset is present.}
+#' \item{loglik}{the maximized log-likelihood.}
+#' \item{aic}{a version of Akaike's \emph{An Information Criterion}, minus twice the maximized log-likelihood plus twice the number of parameters.}
+#' \item{bic}{Bayesian Information Criterion, minus twice the maximized log-likelihood plus the number of parameters multiplied by the logarithm of the number of observations.}
+#' \item{df.residual}{the residual degrees of freedom.}
+#' \item{residuals}{the residuals in the final iteration of the fit.}
+#' \item{coefficients}{a named vector of coefficients.}
+#' \item{betaIIpars}{parameters estimates of the BetaII distribution.}
+#' \item{betascoefs}{a vector of coefficients.}
+#' \item{fitted.values}{the fitted mean values, obtained by transforming the linear predictors by the inverse of the link function.}
+#' \item{hessian}{a symmetric matrix giving an estimate of the Hessian at the solution found in the optimization of the log-likelihood function.}
+#' \item{cov}{an estimate of the covariance matrix of the model coefficients.}
+#' \item{se}{a vector of the standard errors estimates of the estimated coefficients.}
+#' \item{corr}{an estimate of the correlation matrix of the model coefficients.}
+#' \item{code}{a code that indicates successful convergence of the fitter function used (see \code{nlm} and \code{optim} helps).}
+#' \item{method}{the name of the fitter function used.}
+#' \item{k}{if requested, the \code{k} value used.}
+#' \item{kBool}{a logical value specifying whether there is a \code{k} value or it is estimated.}
+#' \item{call}{the matched call.}
+#' \item{formula}{the formula supplied.}
+#' \item{terms}{the \code{terms} object used.}
+#' \item{data}{the \code{data} argument.}
+#' \item{offset}{the offset vector used.}
+#' \item{control}{the value of the \code{control} argument used.}
+#' \item{method}{the name of the fitter function used.}
+#' \item{contrasts}{(where relevant) the contrasts used.}
+#' \item{xlevels}{(where relevant) a record of the levels of the factors used in fitting.}
+#' }
 #'
 #' @importFrom stats model.response is.empty.model model.matrix contrasts model.weights model.offset AIC .getXlevels
 #'
@@ -163,36 +196,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
 }
 
 
-
-#' Genaralizing Waring Regression
-#'
-#' Make a Genaralizing Waring Regression from a formula an a dataset extracting
-#' the response variable and de covariates in no method.... and call to
-#' gw.fit
-#'
-#' @param x  vector of covariables
-#' @param y vector of response variables
-#' @param weights weights of de data is exists
-#' @param k	optional value for the k parameter. If NULL, it is estimated.
-#' @param kstart	starting value for the k parameter.
-#' @param rostart	starting value for the ro parameter.
-#' @param betastart	starting values for the vector of means.
-#' @param offset	this can be used to specify an a priori known component to be included in the linear predictor during fitting. This should be NULL or a numeric vector of length equal to the number of cases. One or more offset terms can be included in the formula instead or as well, and if more than one is specified their sum is used. See model.offset.
-#' @param control	a list of parameters for controlling the fitting process.
-#' @param method	the method to be used in fitting the model. The default method initially uses non-linear minimization (nlm) and Nelder-Mead optimization (optim) to fit a model which is then re-fitted by "L-BFGS-B" (optim). In this way, SE estimates for all the model parameters are provided. "nlm" and "Nelder-Mead" are also possible values, but they do not provide SE estimates for k and ro.
-#' @param hessian	if TRUE, the hessian of f at the minimum is returned.
-#' @param intercept	a logical value ...
-#' @param ...	further arguments.
-#'
-#' @return gw object
-#'
-#' @importFrom stats nlm optim
-#'
-#' @examples
-#' gw(goals~played+position,data=goals)
-#'
 #' @export
-
 gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, betastart = NULL, offset = NULL, control = list(), method = "L-BFGS-B", hessian=TRUE, intercept = TRUE){
 
   control <- do.call("gw.control", control)
@@ -382,27 +386,8 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
   return(results)
 }
 
-
-#' Print a GWRM model
-#'
-#' Print a GWRM model
-#'
-#' @param x	an object class "gw" for which the partition is desired.
-#' @param digits  number ob digit used
-#' @param ... 	further arguments passed to or from other methods.
-#'
-#' @return Sintesis de un objeto gw
-#'
 #' @importFrom stats coef naprint
-#'
-#' @examples
-#'
-#' data(goals)
-#' fit <- gw(goals ~ position, data = goals)
-#' print(fit)
-#'
 #' @export
-#'
 print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("\nCall:  ", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
   if (length(coef(x))) {
@@ -424,22 +409,7 @@ print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
   invisible(x)
 }
 
-#' Summarizing GWRM model Fits
-#'
-#' summary method for class "gw".
-#' @param object an object of class "gw", usually, a result of a call to gw
-#' @param ... 	further arguments passed to or from other methods.
-#'
-#' @return Sintesis de un objeto gw
-#'
 #' @importFrom stats pnorm
-#'
-#' @examples
-#'
-#' data(goals)
-#' fit <- gw(goals ~ position, data = goals)
-#' summary(fit)
-#'
 #' @export
 summary.gw <- function (object, ...){
 
@@ -502,17 +472,8 @@ summary.gw <- function (object, ...){
   return(ans)
 }
 
-#' Print Summarizing GWRM model Fits
-#'
-#' print summary class for summary class "gw".
-#' @param x	an object class "summary.gw" for which the partition is desired.
-#' @param digits  number ob digit used
-#' @param ... 	further arguments passed to or from other methods.
-#'
 #' @importFrom stats coef naprint
-#'
 #' @export
-#'
 print.summary.gw <- function (x, digits = max(3, getOption("digits") - 3), ...){
   if (!inherits(x, "summary.gw"))
   stop("'x' must inherit from class %s", dQuote("summary.table"), domain = NA)
