@@ -2,11 +2,11 @@
 \title{News for Package 'GWRM'}
 \encoding{latin1}
                         
-\section{Changes in version 2.1 (2015-07-31)}{
+\section{Changes in version 2.1 (2015-09-30)}{
                               
 \itemize{
   \item Corrected bug in \code{gw} in relation of optimization methods.
-  \item \code{residuals.gw} S3 method includes now the possibility of parallel computing in order to construc the simulated envelope.
+  \item \code{residuals.gw} S3 method includes now the possibility of parallel computing in order to construct the simulated envelope.
   }
 }
 
