@@ -199,7 +199,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
 
 }
 
-
+#' @importFrom stats nlm optim
 #' @export
 gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, betastart = NULL, offset = NULL, control = list(), method = "L-BFGS-B", hessian=TRUE, intercept = TRUE){
 
