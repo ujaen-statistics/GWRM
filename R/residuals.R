@@ -1,10 +1,10 @@
 #' Extract and Visualize GWRM Model Residuals
 #'
-#' residuals is a method which extracts model residuals from \code{"gw"}, commonly returned by \code{gw} function. Optionally, it produces a normal plot with simulated envelope of the residual.
+#' residuals is a method which extracts model residuals from \code{"gw"}, commonly returned by \code{gw} function. Optionally, it produces a normal plot with a simulated envelope of the residuals.
 #'
 #' @param object	object of class \code{"gw"} holding the fitted model
 #' @param type type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available.
-#' @param rep	number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be build.
+#' @param rep	number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be built.
 #' @param envelope	a logical value to specify if the envelope is required.
 #' @param title	a title for the envelope.
 #' @param trace	if \code{TRUE} a sort of information is printed during the running time.

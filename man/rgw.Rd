@@ -2,7 +2,7 @@
 % Please edit documentation in R/rgw.r
 \name{rgw}
 \alias{rgw}
-\title{Simulation og Generalized Waring values}
+\title{Simulation of Generalized Waring values}
 \usage{
 rgw(n, a, k, ro)
 }
@@ -13,11 +13,10 @@ rgw(n, a, k, ro)
 
 \item{k}{vector of (non-negative) second parameters.}
 
-\item{ro}{vector of (non-negative) third parameters.
-#'}
+\item{ro}{vector of (non-negative) third parameters.}
 }
 \value{
-\code{rgw} is an auxiliar function which generates random samples from a Generalized Waring distribution to be used in the simulated envelope called by \code{residuals}
+\code{rgw} is an auxiliar function which generates random samples from a Generalized Waring distribution to be used in the simulated envelope called by \code{residuals}.
 }
 \description{
 Random generation of values from a Generalized Waring distribution with parameters \code{a}, \code{k} and \code{ro}.

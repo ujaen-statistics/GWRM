@@ -1,12 +1,11 @@
 #' Fitting GWRM Models
 #'
+#' \code{gw} is used to fit Generalized Waring Regression Models (GWRM), specified by giving a symbolic description of the linear predictor.
+#' 
 #' @aliases gw gw.fit
 #'
-#' \code{gw} is used to fit Generalized Waring Regression Models (GWRM), specified by giving a symbolic description of the linear predictor.
-
-#'
 #' @param formula	an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
-#' @param data	an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula).
+#' @param data	an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from \code{environment(formula)}.
 #' @param weights	an optional vector of 'prior weights' to be used in the fitting process. Should be \code{NULL} or a numeric vector.
 #' @param k	optional value for the \code{k} parameter. If \code{NULL}, it is estimated.
 #' @param subset	an optional vector specifying a subset of observations to be used in the fitting process.
@@ -26,42 +25,43 @@
 #'
 #' @return \code{gw} returns an object of class \code{"gw"}. The function \code{summary} can be used to obtain or print a summary of the results. An object of class \code{"gw"} is a list containing the following components:
 #' \itemize{
-#' \item{Y}{if requested (the default), the \code{y} vector used.}
-#' \item{W}{the weights supplied, a vector of \code{1}s if none were.}
-#' \item{covars}{names of the covariates in the model.}
-#' \item{nobs}{number of observations.}
-#' \item{covoffset}{a logical value specifying if an offset is present.}
-#' \item{loglik}{the maximized log-likelihood.}
-#' \item{aic}{a version of Akaike's \emph{An Information Criterion}, minus twice the maximized log-likelihood plus twice the number of parameters.}
-#' \item{bic}{Bayesian Information Criterion, minus twice the maximized log-likelihood plus the number of parameters multiplied by the logarithm of the number of observations.}
-#' \item{df.residual}{the residual degrees of freedom.}
-#' \item{residuals}{the residuals in the final iteration of the fit.}
-#' \item{coefficients}{a named vector of coefficients.}
-#' \item{betaIIpars}{parameters estimates of the BetaII distribution.}
-#' \item{betascoefs}{a vector of coefficients.}
-#' \item{fitted.values}{the fitted mean values, obtained by transforming the linear predictors by the inverse of the link function.}
-#' \item{hessian}{a symmetric matrix giving an estimate of the Hessian at the solution found in the optimization of the log-likelihood function.}
-#' \item{cov}{an estimate of the covariance matrix of the model coefficients.}
-#' \item{se}{a vector of the standard errors estimates of the estimated coefficients.}
-#' \item{corr}{an estimate of the correlation matrix of the model coefficients.}
-#' \item{code}{a code that indicates successful convergence of the fitter function used (see \code{nlm} and \code{optim} helps).}
-#' \item{method}{the name of the fitter function used.}
-#' \item{k}{if requested, the \code{k} value used.}
-#' \item{kBool}{a logical value specifying whether there is a \code{k} value or it is estimated.}
-#' \item{call}{the matched call.}
-#' \item{formula}{the formula supplied.}
-#' \item{terms}{the \code{terms} object used.}
-#' \item{data}{the \code{data} argument.}
-#' \item{offset}{the offset vector used.}
-#' \item{control}{the value of the \code{control} argument used.}
-#' \item{method}{the name of the fitter function used.}
-#' \item{contrasts}{(where relevant) the contrasts used.}
-#' \item{xlevels}{(where relevant) a record of the levels of the factors used in fitting.}
+#' \item \code{Y} {if requested (the default), the \code{y} vector used.}
+#' \item \code{W} {the weights supplied, a vector of \code{1}s if none were.}
+#' \item \code{covars} {names of the covariates in the model.}
+#' \item \code{nobs} {number of observations.}
+#' \item \code{covoffset} {a logical value specifying if an offset is present.}
+#' \item \code{loglik} {the maximized log-likelihood.}
+#' \item \code{aic} {a version of Akaike's \emph{An Information Criterion}, minus twice the maximized log-likelihood plus twice the number of parameters.}
+#' \item \code{bic} {Bayesian Information Criterion, minus twice the maximized log-likelihood plus the number of parameters multiplied by the logarithm of the number of observations.}
+#' \item \code{df.residual} {the residual degrees of freedom.}
+#' \item \code{residuals} {the residuals in the final iteration of the fit.}
+#' \item \code{coefficients} {a named vector of coefficients.}
+#' \item \code{betaIIpars} {parameters estimates of the BetaII distribution.}
+#' \item \code{betascoefs} {a vector of coefficients.}
+#' \item \code{fitted.values} {the fitted mean values, obtained by transforming the linear predictors by the inverse of the link function.}
+#' \item \code{hessian} {a symmetric matrix giving an estimate of the Hessian at the solution found in the optimization of the log-likelihood function.}
+#' \item \code{cov} {an estimate of the covariance matrix of the model coefficients.}
+#' \item \code{se} {a vector of the standard errors estimates of the estimated coefficients.}
+#' \item \code{corr} {an estimate of the correlation matrix of the model coefficients.}
+#' \item \code{code} {a code that indicates successful convergence of the fitter function used (see \code{nlm} and \code{optim} helps).}
+#' \item \code{method} {the name of the fitter function used.}
+#' \item \code{k} {if requested, the \code{k} value used.}
+#' \item \code{kBool} {a logical value specifying whether there is a \code{k} value or it is estimated.}
+#' \item \code{call} {the matched call.}
+#' \item \code{formula} {the formula supplied.}
+#' \item \code{terms} {the \code{terms} object used.}
+#' \item \code{data} {the \code{data} argument.}
+#' \item \code{offset} {the offset vector used.}
+#' \item \code{control} {the value of the \code{control} argument used.}
+#' \item \code{method} {the name of the fitter function used.}
+#' \item \code{contrasts} {(where relevant) the contrasts used.}
+#' \item \code{xlevels} {(where relevant) a record of the levels of the factors used in fitting.}
 #' }
 #'
 #' @importFrom stats model.response is.empty.model model.matrix contrasts model.weights model.offset AIC .getXlevels
 #'
 #' @examples
+#' data(goals)
 #' gw(goals ~ position + offset(log(played)), data = goals)
 #'
 #' @export
