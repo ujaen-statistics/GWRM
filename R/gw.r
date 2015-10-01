@@ -1,5 +1,7 @@
 #' Fitting GWRM Models
 #'
+#' @aliases gw gw.fit
+#'
 #' \code{gw} is used to fit Generalized Waring Regression Models (GWRM), specified by giving a symbolic description of the linear predictor.
 
 #'
@@ -17,7 +19,9 @@
 #' @param method	the method to be used in fitting the model. The default method initially uses non-linear minimization (\code{nlm}) and Nelder-Mead optimization (\code{optim}) to fit a model which is then re-fitted by \code{"L-BFGS-B"} (\code{optim}). In this way, SE estimates for all the model parameters are provided. \code{"nlm"} and \code{"Nelder-Mead"} are also possible values, but they do not provide SE estimates for \code{k} and \code{ro}.
 #' @param hessian	if \code{TRUE}, the hessian of \code{f} at the minimum is returned.
 #' @param model	a logical value indicating whether model frame should be included as a component of the returned value.
-#' @param x,y  logical values indicating whether the response vector and model matrix used in the fitting process should be returned as components of the returned value.
+#' @param x,y  For \code{gw}: logical values indicating whether the response vector and model matrix used in the fitting process should be returned as components of the returned value.
+#' 
+#' For \code{gw.fit}: \code{x} is a design matrix of dimension \code{n * p}, and \code{y} is a vector of observations of length \code{n}.
 #' @param ...	further arguments.
 #'
 #' @return \code{gw} returns an object of class \code{"gw"}. The function \code{summary} can be used to obtain or print a summary of the results. An object of class \code{"gw"} is a list containing the following components:

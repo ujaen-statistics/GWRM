@@ -2,26 +2,24 @@
 % Please edit documentation in R/rgw.r
 \name{rgw}
 \alias{rgw}
-\title{Genaralizing Waring}
+\title{Simulation og Generalized Waring values}
 \usage{
 rgw(n, a, k, ro)
 }
 \arguments{
-\item{n}{number of generated values}
+\item{n}{number of random values to return.}
 
-\item{a}{a parameter}
+\item{a}{vector of (non-negative) first parameters.}
 
-\item{k}{k parameter}
+\item{k}{vector of (non-negative) second parameters.}
 
-\item{ro}{ro parameter}
+\item{ro}{vector of (non-negative) third parameters.
+#'}
 }
 \value{
-vector of generated values
+\code{rgw} is an auxiliar function which generates random samples from a Generalized Waring distribution to be used in the simulated envelope called by \code{residuals}
 }
 \description{
-Random generation for the Gamma distribution with parameters a, k, ro
-}
-\examples{
-rgw(10,2,2,2)
+Random generation of values from a Generalized Waring distribution with parameters \code{a}, \code{k} and \code{ro}.
 }
 

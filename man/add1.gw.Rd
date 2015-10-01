@@ -8,20 +8,20 @@
   trace = FALSE, ...)
 }
 \arguments{
-\item{object}{a fitted object of class inheriting from "gw".}
+\item{object}{a fitted object of class inheriting from \code{"gw"}.}
 
 \item{scope}{a formula giving the terms to be considered for adding.}
 
-\item{test}{"none", which considers the AIC criterion, or Chisq, which is the likelihood-ratio test.}
+\item{test}{\code{"none"}, which considers the AIC criterion, or \code{Chisq}, which is the likelihood-ratio test.}
 
 \item{k}{the penalty constant in AIC / Cp.}
 
-\item{trace}{if TRUE, print out progress reports.}
+\item{trace}{if \code{TRUE}, print out progress reports.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-An object of class "anova" summarizing the differences in fit between the models.
+An object of class \code{"anova"} summarizing the differences in fit between the models.
 }
 \description{
 Compute all the single terms in the scope argument that can be added to the GWRM model, fit those models and compute a table of the changes in fit.

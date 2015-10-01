@@ -7,7 +7,7 @@
 partvar(object, newdata = NULL, ...)
 }
 \arguments{
-\item{object}{an object class "gw" for which the partition is desired.}
+\item{object}{an object class \code{"gw"} for which the partition is desired.}
 
 \item{newdata}{optionally, a data frame in which to look for variables with which to obtain the partition. If omitted, all the cases are used.}
 
@@ -18,6 +18,9 @@ Two data frames, with ratio of sources of variation and sources of variation in 
 }
 \description{
 In a GWRM model, the variance may be split into three terms. The first component of this decomposition represents the variability due to randomness and it comes from the underlying Poisson model. The other two components refer to the variability that is not due to randomness but is explained by the presence of liability and proneness, respectively.
+}
+\details{
+One of the main drawbacks of using the Univariate Generalized Waring Distribution with parameters \emph{a}, \emph{k} and \emph{ro} is that the parameters \emph{a} and \emph{k} are interchangeable when there is no auxiliary information given by the covariates. This identification problem prevents liability and proneness components from being distinguished in the univariate fits. To solve it, Irwin (1968) proposed that the expert should deduce which of these components is which from their own knowledge of the phenomenon. Xekalaki (1984) proposed a less subjective solution, developing a bivariate model that divides the observation period into two non-overlapping subperiods in which the model for proneness does not change. In the GWRM with, at least, one covariate, the parameters a and k are not interchangeable because, as in Xekalaki's bivariate model, the random model for proneness does not change. So, the identification problem of the non-random components is solved.
 }
 \examples{
 data(goals)

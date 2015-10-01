@@ -2,22 +2,22 @@
 % Please edit documentation in R/predict.gw.r
 \name{predict.gw}
 \alias{predict.gw}
-\title{Predict Method for GW Fits}
+\title{GWRM Predictions}
 \usage{
 \method{predict}{gw}(object = NULL, newdata = NULL, ...)
 }
 \arguments{
-\item{object}{a fitted object of class inheriting from "gw".}
+\item{object}{a fitted object of class inheriting from \code{"gw"}.}
 
 \item{newdata}{optionally, a data frame in which to look for variables with which to predict. If omitted, the fitted linear predictors are used.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-a vector or matrix of predictions
+A data frame with newdata and their fitted means.
 }
 \description{
-Obtains predictions and optionally estimates standard errors of those predictions from a fitted generalized linear model object.
+Obtains predictions from a fitted GWRM object.
 }
 \examples{
 data(goals)

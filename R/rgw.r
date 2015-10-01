@@ -1,3 +1,12 @@
+#' @name rgw
+#' @title Simulation og Generalized Waring values
+#' @description Random generation of values from a Generalized Waring distribution with parameters \code{a}, \code{k} and \code{ro}.
+#' @param n number of random values to return.
+#' @param a vector of (non-negative) first parameters.
+#' @param k vector of (non-negative) second parameters.
+#' @param ro vector of (non-negative) third parameters.
+#' #' @return
+#' \code{rgw} is an auxiliar function which generates random samples from a Generalized Waring distribution to be used in the simulated envelope called by \code{residuals}
 #' @importFrom stats rbeta rgamma rpois
 #' @export
 

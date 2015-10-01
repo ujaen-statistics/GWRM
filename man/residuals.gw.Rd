@@ -9,30 +9,32 @@
   trace = FALSE, parallel = TRUE, ncores = 2, ...)
 }
 \arguments{
-\item{object}{object of class "gw" holding the fitted model}
+\item{object}{object of class \code{"gw"} holding the fitted model}
 
-\item{type}{type of residuals to be extracted. Default is pearson. response and deviance are also available.}
+\item{type}{type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available.}
 
-\item{rep}{number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be build}
+\item{rep}{number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be build.}
 
 \item{envelope}{a logical value to specify if the envelope is required.}
 
 \item{title}{a title for the envelope.}
 
-\item{trace}{if TRUE a sort of information is printed during the running time.}
+\item{trace}{if \code{TRUE} a sort of information is printed during the running time.}
 
-\item{parallel}{if TRUE use parallel executation}
+\item{parallel}{if \code{TRUE} use parallel executation.}
 
-\item{ncores}{is the number of cores that we use if parallel is TRUE}
+\item{ncores}{is the number of cores that we use if \code{parallel} is \code{TRUE}.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-residuals values and plot
+Residuals values and plot
 }
 \description{
-residuals is a method which extracts model residuals from "gw", commonly returned
-by gw function. Optionally, it produces a normal plot with simulated envelope of the residual.
+residuals is a method which extracts model residuals from \code{"gw"}, commonly returned by \code{gw} function. Optionally, it produces a normal plot with simulated envelope of the residual.
+}
+\details{
+The usual Q-Q plot may show an unsatisfactory pattern of the residuals of a model fitted: then we are led to think that the model is badly specificated. The normal plot with simulated envelope indicates that under the distribution of the response variable the model is OK if only a few points fall off the envelope.
 }
 \examples{
 data(goals)
