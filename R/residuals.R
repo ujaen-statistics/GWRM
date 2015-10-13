@@ -80,7 +80,7 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = TRUE, ti
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
           fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
-          if(fit$aic>0)
+          if(fit$aic>0 || fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values
             datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
@@ -97,7 +97,7 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = TRUE, ti
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
           fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
-          if(fit$aic>0)
+          if(fit$aic>0 || fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values
             datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
