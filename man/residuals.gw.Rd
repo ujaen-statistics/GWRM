@@ -38,8 +38,8 @@ The usual Q-Q plot may show an unsatisfactory pattern of the residuals of a mode
 }
 \examples{
 data(goals)
+set.seed(1)
 fit0 <- gw(goals ~ position, data = goals[sample(1:nrow(goals), 75), ])
-set.seed(01102015)
 residuals(fit0, type = "pearson", rep = 19, envelope = TRUE, trace = FALSE, ncores = 2)
 }
 

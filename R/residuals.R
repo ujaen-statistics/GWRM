@@ -17,8 +17,8 @@
 #'
 #' @examples
 #' data(goals)
+#' set.seed(1)
 #' fit0 <- gw(goals ~ position, data = goals[sample(1:nrow(goals), 75), ])
-#' set.seed(01102015)
 #' residuals(fit0, type = "pearson", rep = 19, envelope = TRUE, trace = FALSE, ncores = 2)
 #'
 #' @importFrom stats qnorm
