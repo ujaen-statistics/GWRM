@@ -192,6 +192,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
     class(fit) <- "gw"
   }
   else{
+    fit<-list()
     fit$aic<- -Inf
   }
   options(warn=warningDefault)
