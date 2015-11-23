@@ -184,7 +184,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
       }
     }
   }
-  if (fitted){
+  if (fitted && fit$converged){
     if (x)
       fit$X <- X
     if (!y)
