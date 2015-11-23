@@ -145,7 +145,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
         cat(paste(round(neldermead.aic,2), "AIC value in 'Nelder-Mead' initial fit"), "\n")
       }
     }
-    if ((neldermead.aic == Inf && nlm.aic == Inf){
+    if (neldermead.aic == Inf && nlm.aic == Inf){
       warning("No 'nlm' neither 'Nelder-Mead' provide fits. Try to change initial values")
     }
     else {
