@@ -28,7 +28,7 @@
 #' @importFrom foreach foreach %dopar% %do%
 #' @export
 
-residuals.gw <- function(object, type = "pearson", rep = 19, envelope = TRUE, title = "Simulated Envelope of Residuals", trace = FALSE, parallel=TRUE, ncores=2,  ...){
+residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, title = "Simulated Envelope of Residuals", trace = FALSE, parallel=TRUE, ncores=2,  ...){
 
   resid.gw <- function(object, type){
     mu <- object$fitted.values
