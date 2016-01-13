@@ -198,6 +198,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
     fit$converged=FALSE
   }
   options(warn=warningDefault)
+  class(fit) <- "gw"
   fit
 
 }
@@ -538,6 +539,7 @@ gw.control <- function (maxit = 10000, epsilon = 1e-08, trace = FALSE) {
 }
 
 #' @importFrom stats model.frame
+#' @export
 model.matrix.gw<-function (object, ...) {
   if (n_match <- match("x", names(object), 0L)) object[[n_match]]
   else {
