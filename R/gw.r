@@ -44,6 +44,7 @@
 #' \item \code{se} {a vector of the standard errors estimates of the estimated coefficients.}
 #' \item \code{corr} {an estimate of the correlation matrix of the model coefficients.}
 #' \item \code{code} {a code that indicates successful convergence of the fitter function used (see \code{nlm} and \code{optim} helps).}
+#' \item \code{converged} {logical value that indicates if the optimization algorithms succesfull.}
 #' \item \code{method} {the name of the fitter function used.}
 #' \item \code{k} {if requested, the \code{k} value used.}
 #' \item \code{kBool} {a logical value specifying whether there is a \code{k} value or it is estimated.}
@@ -144,7 +145,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
         cat(paste(round(neldermead.aic,2), "AIC value in 'Nelder-Mead' initial fit"), "\n")
       }
     }
-    if (neldermead.aic == Inf & nlm.aic == Inf){
+    if (neldermead.aic == Inf && nlm.aic == Inf){
       warning("No 'nlm' neither 'Nelder-Mead' provide fits. Try to change initial values")
     }
     else {
@@ -183,7 +184,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
       }
     }
   }
-  if (fitted){
+  if (fitted && fit$converged){
     if (x)
       fit$X <- X
     if (!y)
@@ -194,8 +195,10 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
   else{
     fit<-list()
     fit$aic<- -Inf
+    fit$converged=FALSE
   }
   options(warn=warningDefault)
+  class(fit) <- "gw"
   fit
 
 }
@@ -317,11 +320,19 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
     fit$value <- fit$minimum
     fit$par <- fit$estimate
     fit$convergence <- fit$code
+    if(fit$convergence<3)
+      fit$converged=TRUE
+    else
+      fit$converged=FALSE
     methodText = "nlm"
   }
   else if (any(method == c("Nelder-Mead", "BFGS", "CG","SANN"))){
     fit <- optim(p0, logL, method = method, hessian = hessian, control = list(maxit = control$maxit, trace = control$trace))
     methodText <- method
+    if(fit$convergence==0)
+      fit$converged=TRUE
+    else
+      fit$converged=FALSE
   }
   else if (any(method == c("L-BFGS-B"))){
     #The constraints depends on whether k is known so
@@ -333,6 +344,10 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
     }
     fit <- optim(p0, logL, method = method, hessian = hessian, lower = lower, control = list(maxit = control$maxit, trace = control$trace))
     methodText <- method
+    if(fit$convergence==0)
+      fit$converged=TRUE
+    else
+      fit$converged=FALSE
   }
 
   if(!kBool){
@@ -382,6 +397,7 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
     se = sqrt(diag(solve(fit$hessian))),
     corr = solve(fit$hessian) / (sqrt(diag(solve(fit$hessian))) %o% sqrt(diag(solve(fit$hessian)))),
     code = fit$convergence,
+    converged=fit$converged,
     method = methodText,
     k = k,
     kBool = kBool
@@ -523,6 +539,7 @@ gw.control <- function (maxit = 10000, epsilon = 1e-08, trace = FALSE) {
 }
 
 #' @importFrom stats model.frame
+#' @export
 model.matrix.gw<-function (object, ...) {
   if (n_match <- match("x", names(object), 0L)) object[[n_match]]
   else {

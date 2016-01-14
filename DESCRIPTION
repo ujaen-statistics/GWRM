@@ -1,7 +1,7 @@
 Package: GWRM
 Type: Package
 Title: Generalized Waring Regression Model for Count Data
-Version: 2.1
+Version: 2.1.0.1
 Date: 2015-09-30
 Authors@R: c(
     person("Antonio Jose", "Saez-Castillo", role = c("aut", "cre"), email = "ajsaez@ujaen.es"),

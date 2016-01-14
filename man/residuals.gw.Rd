@@ -5,7 +5,7 @@
 \title{Extract and Visualize GWRM Model Residuals}
 \usage{
 \method{residuals}{gw}(object, type = "pearson", rep = 19,
-  envelope = TRUE, title = "Simulated Envelope of Residuals",
+  envelope = FALSE, title = "Simulated Envelope of Residuals",
   trace = FALSE, parallel = TRUE, ncores = 2, ...)
 }
 \arguments{

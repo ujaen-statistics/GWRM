@@ -67,6 +67,7 @@ For \code{gw.fit}: \code{x} is a design matrix of dimension \code{n * p}, and \c
 \item \code{se} {a vector of the standard errors estimates of the estimated coefficients.}
 \item \code{corr} {an estimate of the correlation matrix of the model coefficients.}
 \item \code{code} {a code that indicates successful convergence of the fitter function used (see \code{nlm} and \code{optim} helps).}
+\item \code{converged} {logical value that indicates if the optimization algorithms succesfull.}
 \item \code{method} {the name of the fitter function used.}
 \item \code{k} {if requested, the \code{k} value used.}
 \item \code{kBool} {a logical value specifying whether there is a \code{k} value or it is estimated.}
