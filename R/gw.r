@@ -196,6 +196,7 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
     fit<-list()
     fit$aic<- -Inf
     fit$converged=FALSE
+    fit$nobs=nrow(X)
   }
   options(warn=warningDefault)
   class(fit) <- "gw"
