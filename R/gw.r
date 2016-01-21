@@ -411,6 +411,9 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
 #' @importFrom stats coef naprint
 #' @export
 print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
+  if(!x$converged){
+    stop("The estimation method does not converge.")
+  }
   cat("\nCall:  ", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
   if (length(coef(x))) {
     cat("Coefficients")
@@ -434,7 +437,9 @@ print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @importFrom stats pnorm
 #' @export
 summary.gw <- function (object, ...){
-
+  if(!object$converged){
+    stop("The estimation method does not converge.")
+  }
   df.r <- object$df.residual
   if (is.null(object$covars)) object$covars <- "(Intercept)"
   coef.p <- object$betascoefs
