@@ -184,13 +184,12 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
       }
     }
   }
-  if (fitted && fit$converged){
+  if (fitted){
     if (x)
       fit$X <- X
     if (!y)
       fit$Y <- NULL
     fit <- c(fit, list(call = call, formula = formula, terms = Terms, data = data, offset = offset, control = control, method = method, contrasts = attr(X, "contrasts"), xlevels = .getXlevels(Terms, mf)))
-    class(fit) <- "gw"
   }
   else{
     fit<-list()
@@ -201,7 +200,6 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
   options(warn=warningDefault)
   class(fit) <- "gw"
   fit
-
 }
 
 #' @importFrom stats nlm optim
@@ -412,7 +410,7 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
 #' @export
 print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
   if(!x$converged){
-    stop("The estimation method does not converge.")
+    cat("The estimation method does not converge.")
   }
   cat("\nCall:  ", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
   if (length(coef(x))) {
@@ -438,7 +436,7 @@ print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @export
 summary.gw <- function (object, ...){
   if(!object$converged){
-    stop("The estimation method does not converge.")
+    cat("The estimation method does not converge.")
   }
   df.r <- object$df.residual
   if (is.null(object$covars)) object$covars <- "(Intercept)"
