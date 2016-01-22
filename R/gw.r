@@ -184,13 +184,12 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
       }
     }
   }
-  if (fitted && fit$converged){
+  if (fitted){
     if (x)
       fit$X <- X
     if (!y)
       fit$Y <- NULL
     fit <- c(fit, list(call = call, formula = formula, terms = Terms, data = data, offset = offset, control = control, method = method, contrasts = attr(X, "contrasts"), xlevels = .getXlevels(Terms, mf)))
-    class(fit) <- "gw"
   }
   else{
     fit<-list()
@@ -201,7 +200,6 @@ gw <- function(formula, data, weights, k = NULL, subset, na.action,
   options(warn=warningDefault)
   class(fit) <- "gw"
   fit
-
 }
 
 #' @importFrom stats nlm optim
@@ -411,9 +409,7 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
 #' @importFrom stats coef naprint
 #' @export
 print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
-  if(!x$converged){
-    stop("The estimation method does not converge.")
-  }
+
   cat("\nCall:  ", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
   if (length(coef(x))) {
     cat("Coefficients")
@@ -431,15 +427,15 @@ print.gw<-function (x, digits = max(3L, getOption("digits") - 3L), ...) {
   }
   cat("AIC:", format(signif(x$aic, digits)))
   cat("\n")
+  if(!x$converged){
+    cat("Error of convergence")
+  }
   invisible(x)
 }
 
 #' @importFrom stats pnorm
 #' @export
 summary.gw <- function (object, ...){
-  if(!object$converged){
-    stop("The estimation method does not converge.")
-  }
   df.r <- object$df.residual
   if (is.null(object$covars)) object$covars <- "(Intercept)"
   coef.p <- object$betascoefs
@@ -494,7 +490,7 @@ summary.gw <- function (object, ...){
   }
 
   keep <- match(c("call", "terms", "deviance", "aic", "contrasts", "df.residual", "na.action"), names(object), 0L)
-  ans <- c(object[keep], list(coefficients = coef.table, fitted = fitted, betaII = betaII, method = object$method, convergence = object$code))
+  ans <- c(object[keep], list(coefficients = coef.table, fitted = fitted, betaII = betaII, method = object$method, convergence = object$code),converged=object$converged)
   class(ans) <- "summary.gw"
   return(ans)
 }
@@ -528,7 +524,7 @@ print.summary.gw <- function (x, digits = max(3, getOption("digits") - 3), ...){
   }
   else cat("No betaII\n\n")
   cat("\nDegrees of Freedom:", x$df.null, "Total (i.e. Null); ", x$df.residual, "Residual\n")
-  cat("\nCode of convergence:", x$convergence, "\n")
+  cat("\nCode of convergence:", x$convergence, if(!x$converged) "(Error of convergence)" else "", "\n")
   cat("\nMethod:", x$method, "\n")
   if (nzchar(mess <- naprint(x$na.action))){
     cat("  (", mess, ")\n", sep = "")
