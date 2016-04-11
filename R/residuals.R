@@ -43,10 +43,24 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
       }
     }
     if (type == 'deviance'){
-      a <- mu * (ro - 1) / k
-      gama <- a + k + ro
+#       a <- mu * (ro - 1) / k
+#       gama <- a + k + ro
+#       y <- object$Y
+#       residuos <- sort(2 * (lgamma(a + y) + lgamma(k + y) - lgamma(gama + y) - (lgamma(a + mu) + lgamma(k + mu) - lgamma(gama + mu))))
       y <- object$Y
-      residuos <- sort(2 * (lgamma(a + y) + lgamma(k + y) - lgamma(gama + y) - (lgamma(a + mu) + lgamma(k + mu) - lgamma(gama + mu))))
+      logfy <- function(x){
+        if (x==0) return(0)
+        else{
+          a <- x * (ro - 1) / k
+          return(lgamma(a + ro) + lgamma(k + ro) - lgamma(a) - lgamma(k) - lgamma(ro) + lgamma(a + x) + lgamma(k + x) - lgamma(a + k + ro + x) - lgamma(x + 1))
+          }
+      }
+      a_mu <- mu * (ro - 1) / k
+      logfmu <- lgamma(a_mu + ro) + lgamma(k + ro) - lgamma(a_mu) - lgamma(k) - lgamma(ro) + lgamma(a_mu + y) + lgamma(k + y) - lgamma(a + k + ro + y) - lgamma(y + 1)
+      
+      residuos <- sort(sign(y - mu) * sqrt(2 * abs(sapply(y, FUN = logfy) - logfmu)))
+      #residuos <- sort(2 * logfmu)
+      #print(cbind(y, mu, sapply(y, FUN = logfy), logfmu))
       return(residuos)
     }
     if (type == 'response'){
@@ -73,13 +87,15 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
       clusterExport(cl, list("object","rgw","type"),
                     envir=environment())
 
-      residuos.sim <- foreach(j=1:(rep-1), .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %dopar%{
+      #residuos.sim <- foreach(j=1:(rep-1), .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %dopar%{
+      residuos.sim <- foreach(j=1:rep, .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %dopar%{
         converged<-FALSE
         varResponse<-getResponse(object$formula)
         datos <- object$data[rep(1:nrow(object$data), object$W),]
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
-          fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
+          #fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
+          fit <- try(GWRM::gw(object$formula, data = datos, method = object$methodCode), silent = TRUE)
           if(fit$aic>0 && fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values
@@ -90,13 +106,15 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
       }
       stopCluster(cl)
     }else{
-      residuos.sim <- foreach(j=1:(rep-1), .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %do%{
+      #residuos.sim <- foreach(j=1:(rep-1), .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %do%{
+      residuos.sim <- foreach(j=1:rep, .combine = cbind,.multicombine = TRUE,.inorder=FALSE,.packages=c("GWRM"),.verbose=as.logical(trace)) %do%{
         converged<-FALSE
         varResponse<-getResponse(object$formula)
         datos <- object$data[rep(1:nrow(object$data), object$W),]
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
-          fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
+          #fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
+          fit <- try(GWRM::gw(object$formula, data = datos, method = object$methodCode), silent = TRUE)
           if(fit$aic>0 && fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values
@@ -120,6 +138,9 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
     plot(normal.score, residuos, type = "l", xlab = "Standard normal quantiles", ylab = paste("Residuals ","(",type[1],")", sep = ""), main = title)
     polygon(xx, yy, col = "gray", border = NA)
     lines(normal.score, residuos)
+#     for (j in 2:rep){
+#       lines(normal.score, residuos.sim[,j])
+#     }
   }
 
   et <- proc.time()
