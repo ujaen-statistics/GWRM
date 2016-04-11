@@ -3,7 +3,7 @@
 #' residuals is a method which extracts model residuals from \code{"gw"}, commonly returned by \code{gw} function. Optionally, it produces a normal plot with a simulated envelope of the residuals.
 #'
 #' @param object	object of class \code{"gw"} holding the fitted model
-#' @param type type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available.
+#' @param type type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available. Deviance residuals are defined as \eqn{2[ln f(y_i|y_i)-ln f(\widehat{\mu}_i|y_i)]}, so that their sum is the value of the deviance statistic.
 #' @param rep	number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be built.
 #' @param envelope	a logical value to specify if the envelope is required.
 #' @param title	a title for the envelope.
@@ -43,6 +43,7 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
       }
     }
     if (type == 'deviance'){
+<<<<<<< HEAD
 #       a <- mu * (ro - 1) / k
 #       gama <- a + k + ro
 #       y <- object$Y
@@ -61,6 +62,20 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
       residuos <- sort(sign(y - mu) * sqrt(2 * abs(sapply(y, FUN = logfy) - logfmu)))
       #residuos <- sort(2 * logfmu)
       #print(cbind(y, mu, sapply(y, FUN = logfy), logfmu))
+=======
+      diflogdgw<-function(p,k,ro){
+        y<-p[1]
+        a<-p[2]
+        if(y==0) -lgamma(k+ro)-lgamma(a+ro)+lgamma(ro)+lgamma(a+k+ro)
+        else{
+          lgamma(y*(ro-1)/k+ro)+lgamma(y*(ro-1)/k+y)-lgamma(y*(ro-1)/k)-lgamma(y*(ro-1)/k+k+ro+y)-lgamma(a+ro)-lgamma(a+y)+lgamma(a)+lgamma(a+k+ro+y)
+        }
+      }
+      y <- object$Y
+      a <- mu*(ro-1)/k
+      p <- cbind(y,a)
+      residuos <- 2*sort(apply(p,1,k,ro,FUN=diflogdgw))
+>>>>>>> 1851015596deceaf56ee7833123d99fcce6805cd
       return(residuos)
     }
     if (type == 'response'){
@@ -94,8 +109,12 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
         datos <- object$data[rep(1:nrow(object$data), object$W),]
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
+<<<<<<< HEAD
           #fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
           fit <- try(GWRM::gw(object$formula, data = datos, method = object$methodCode), silent = TRUE)
+=======
+          fit <- try(GWRM::gw(object$formula, data = datos, k = object$k), silent = TRUE)
+>>>>>>> 1851015596deceaf56ee7833123d99fcce6805cd
           if(fit$aic>0 && fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values
@@ -113,8 +132,12 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
         datos <- object$data[rep(1:nrow(object$data), object$W),]
         datos[varResponse]<-as.matrix(rgw(n, a, k, ro))
         while(!converged){
+<<<<<<< HEAD
           #fit <- try(GWRM::gw(object$formula, data = datos, k = object$k, method = object$methodCode), silent = TRUE)
           fit <- try(GWRM::gw(object$formula, data = datos, method = object$methodCode), silent = TRUE)
+=======
+          fit <- try(GWRM::gw(object$formula, data = datos, k = object$k), silent = TRUE)
+>>>>>>> 1851015596deceaf56ee7833123d99fcce6805cd
           if(fit$aic>0 && fit$betaIIpars[2]>2)
             converged<-TRUE
           else{ ##Generate new response values

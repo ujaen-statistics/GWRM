@@ -11,7 +11,7 @@
 \arguments{
 \item{object}{object of class \code{"gw"} holding the fitted model}
 
-\item{type}{type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available.}
+\item{type}{type of residuals to be extracted. Default is \code{"pearson"}. \code{"response"} and \code{"deviance"} are also available. Deviance residuals are defined as \eqn{2[ln f(y_i|y_i)-ln f(\widehat{\mu}_i|y_i)]}, so that their sum is the value of the deviance statistic.}
 
 \item{rep}{number of replications for envelope construction. Default is 19, that is the smallest 95 percent band that can be built.}
 
