@@ -374,7 +374,15 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
       betaIIpars <- c(k, fit$par[ncovars + 1])
     }
   }
-
+  if ( kBool && k==1 ){
+    loglik = -fit$value
+    aic = 2 * fit$value + (length(betastart) + 2 - gCorrect) * 2
+    bic = 2 * fit$value + (length(betastart) + 2 - gCorrect) * log(sum(w))
+  }else{
+    loglik = -(fit$value + sum(w * lfactorial(Y)))
+    aic = 2 * (fit$value + sum(w * lfactorial(Y))) + (length(betastart) + 2 - gCorrect) * 2
+    bic = 2 * (fit$value + sum(w * lfactorial(Y))) + (length(betastart) + 2 - gCorrect) * log(sum(w))
+  }
 
   results <- list(
     Y = Y,
@@ -382,9 +390,9 @@ gw.fit <-function (x, y, weights = NULL, k = NULL, kstart = 1, rostart = 2, beta
     covars = dimnames(X)[[2]],
     nobs = sum(w),
     covoffset = covoffset,
-    loglik = -(fit$value + sum(w * lfactorial(Y))),
-    aic = 2 * (fit$value + sum(w * lfactorial(Y))) + (length(betastart) + 2 - gCorrect) * 2,
-    bic = 2 * (fit$value + sum(w * lfactorial(Y))) + (length(betastart) + 2 - gCorrect) * log(sum(w)),
+    loglik = loglik,
+    aic = aic,
+    bic = bic,
     df.residual = sum(w) - (length(betastart) + 2 - gCorrect),
     residuals = Y - exp(offset + X %*% fit$par[1:ncovars]),
     coefficients = coef.table,
