@@ -12,4 +12,4 @@ bibentry(bibtype = "Manual",
     person("Ana Maria", "Martinez-Rodriguez")),
          year = year,
          note = note,
-         url = "http://CRAN.R-project.org/package=GWRM")
+         url = "https://cran.r-project.org/package=GWRM")
