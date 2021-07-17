@@ -74,6 +74,7 @@ residuals.gw <- function(object, type = "pearson", rep = 19, envelope = FALSE, t
     a <- mu * (ro - 1) / k
 
     n<-sum(object$W)
+    object$data <- na.omit(modelo.gw$data[all.vars(modelo.gw$formula)])
 
     if (parallel){
       cl <- makeCluster(ncores)
